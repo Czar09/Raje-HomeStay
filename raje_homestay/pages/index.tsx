@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Banner from '../components/Banner'
 import Head from '../components/Head'
+import LargeCard from '../components/LargeCard'
 import MediumCard from '../components/MediumCard'
 
 export default function Home() {
@@ -13,10 +14,13 @@ export default function Home() {
           <h2 className='text-4xl py-8 font-semibold'>
             Explore These
           </h2>
+          <div className='flex overflow-scroll space-x-6 scrollbar-hide'>
+            <MediumCard />
+          </div>
         </section>
-        <div className='flex overflow-scroll space-x-6 scrollbar-hide'>
-          <MediumCard />
-        </div>
+
+        <LargeCard />
+
       </main>
 
     </div>
