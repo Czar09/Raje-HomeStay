@@ -1,11 +1,14 @@
 import Image from 'next/image'
+import { useState } from 'react'
 import Banner from '../components/Banner'
+import Footer from '../components/Footer'
 import Head from '../components/Head'
 import LargeCard from '../components/LargeCard'
 import MediumCard from '../components/MediumCard'
-import SmallCard from '../components/SmallCard'
+import SmallCard from '../components/SmallCard' 
 
 export default function Home() {
+
   return (
     <div>
       <Head />
@@ -23,7 +26,7 @@ export default function Home() {
 
         <LargeCard />
 
-        <section className='pt-6 mt-3 '>
+        <section className='pt-6 mt-3 mb-10'>
           <h2 className='text-4xl py-8 font-semibold'>
             Amenities
           </h2>
@@ -33,7 +36,7 @@ export default function Home() {
         </section>
       </main>
 
-      
+      <Footer/>
 
     </div>
   )
