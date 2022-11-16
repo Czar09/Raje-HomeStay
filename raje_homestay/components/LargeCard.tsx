@@ -6,7 +6,7 @@ type Props = {
 
 function LargeCard({}: Props) {
   return (
-    <section className='relative py-16 cursor-pointer'>
+    <section className='relative py-16 cursor-pointer mt-10'>
         <div className='relative h-96 min-w-[300px]'>
         <Image
                     priority
