@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Footer from '../components/Footer'
 import Head from '../components/Head'
 import {format} from 'date-fns';
+import InfoCard from '../components/InfoCard'
 
 export default function search({}) {
     const router  = useRouter();
@@ -31,6 +32,12 @@ export default function search({}) {
                     Pet Friendly
                 </p>
             </div>
+
+            <InfoCard/>
+            <InfoCard/>
+            <InfoCard/>
+            <InfoCard/>
+            
         </section>
        </main>
 
