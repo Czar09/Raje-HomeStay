@@ -17,7 +17,7 @@ export default function search({}) {
        
        <Head placeholder={`${location}, ${startDate} - ${endDate} | ${numOfGuests} guests`}/>
        
-       <main className='flex '>
+       <main className='flex mb-10'>
         <section className='flex-grow pt-14 px-6'>
             <p className='text-xs'>Stays for {numOfGuests} guests from {startDate} - {endDate}</p>
             <h1 className='text-3xl font-semibold mt-2 mb-6'> Stays in {location}</h1>
@@ -37,7 +37,7 @@ export default function search({}) {
             <InfoCard/>
             <InfoCard/>
             <InfoCard/>
-            
+
         </section>
        </main>
 
