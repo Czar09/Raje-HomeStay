@@ -1,10 +1,12 @@
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
-import Footer from '../components/Footer'
-import Head from '../components/Head'
+import Footer from '../../components/Footer'
+import Head from '../../components/Head'
 import {format} from 'date-fns';
-import InfoCard from '../components/InfoCard'
+import ImageGrid from '../../components/ImageGrid'
+import { LoaderIcon } from '../../components/Loader'
+import RoomInfo from '../../components/RoomInfo'
 
 export default function search({}) {
     const router  = useRouter();
@@ -14,7 +16,6 @@ export default function search({}) {
 
   return (
     <div>
-       
        <Head placeholder={`${location}, ${startDate} - ${endDate} | ${numOfGuests} guests`}/>
        
        <main className='flex mb-10'>
@@ -32,12 +33,9 @@ export default function search({}) {
                     Pet Friendly
                 </p>
             </div>
+            <ImageGrid/>
 
-            <InfoCard id='1'/>
-            <InfoCard/>
-            <InfoCard/>
-            <InfoCard/>
-
+            <RoomInfo/>
         </section>
        </main>
 
