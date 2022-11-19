@@ -11,6 +11,7 @@
   "dependencies": {
     "@badrap/bar-of-progress": "^0.2.2",
     "@heroicons/react": "v1",
+    "@sanity/cli": "^2.35.0",
     "@types/node": "18.11.9",
     "@types/react": "18.0.25",
     "@types/react-dom": "18.0.8",
