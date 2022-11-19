@@ -7,8 +7,15 @@ import LargeCard from '../components/LargeCard'
 import MediumCard from '../components/MediumCard'
 import SmallCard from '../components/SmallCard' 
 import ImageGallery from 'react-image-gallery';
+import { GalleryImage } from '../typing'
+import getGalleryImage from './api/getGalleryImage'
 
-export default function Home() {
+
+type Props = {
+  galleryImage: GalleryImage[],
+}
+
+export default function Home({galleryImage}: Props) {
 
   const images = [
     {
@@ -58,6 +65,18 @@ export default function Home() {
 
     </div>
   )
+}
+
+
+export const getStaticProps: GetStaticProps<Props> = async() => {
+  const galleryImage: GalleryImage[] = await getGalleryImage();
+
+  return {
+      props:{
+          galleryImage
+      },
+      revalidate:10,
+  }
 }
 
 

@@ -13,16 +13,16 @@ interface Image{
     };
 }
 
-export interface RoomInfo extends sanityBody{
+export interface RoomInformation extends sanityBody{
     _type: "roomInfo";
     roomId: string;
     name: string;
     price: string;
-    heroImage: string;
-    heroImage2: string;
-    heroImage3: string;
-    heroImage4: string;
-    heroImage5: string;
+    heroImage: Image;
+    heroImage2: Image;
+    heroImage3: Image;
+    heroImage4: Image;
+    heroImage5: Image;
     backgroundInfo: string;
 }
 

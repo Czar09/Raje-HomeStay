@@ -5,8 +5,17 @@ import Footer from '../components/Footer'
 import Head from '../components/Head'
 import {format} from 'date-fns';
 import InfoCard from '../components/InfoCard'
+import { GetStaticProps } from 'next'
+import { RoomInformation, Social } from '../typing'
+import {fetchSocials} from '../utils/fetchSocials'
 
-export default function search({}) {
+type Props = {
+    socials: Social[],
+  }
+  
+
+
+export default function search({socials}:Props) {
     const router  = useRouter();
     {/** Destructured Values */}
     console.log(router.query);
@@ -32,16 +41,24 @@ export default function search({}) {
                     Pet Friendly
                 </p>
             </div>
-
-            <InfoCard id='1'/>
-            <InfoCard/>
-            <InfoCard/>
-            <InfoCard/>
-
+            {/* {socials.map((social)=>(
+                <InfoCard/>
+            ))} */}
         </section>
        </main>
 
        <Footer/>     
     </div>
   )
+}
+
+
+export const getStaticProps: GetStaticProps<Props> = async() => {
+    const socials: Social[] = await fetchSocials();
+    return {
+        props:{
+            socials,
+        },
+        revalidate:10,
+    }
 }

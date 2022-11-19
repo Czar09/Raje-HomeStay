@@ -2,7 +2,7 @@ import { stringify } from "querystring";
 
 export default {
   name: 'roomInfo',
-  title: 'roomInfo',
+  title: 'RoomInfo',
   type: 'document',
   fields: [
     {
