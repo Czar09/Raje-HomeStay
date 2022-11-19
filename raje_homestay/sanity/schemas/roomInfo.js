@@ -29,38 +29,6 @@ export default {
       },
     },
     {
-      name: "heroImage2",
-      title: "Image",
-      type: "image",
-      options: {
-        hotspot:true,
-      },
-    },
-    {
-      name: "heroImage3",
-      title: "Image",
-      type: "image",
-      options: {
-        hotspot:true,
-      },
-    },
-    {
-      name: "heroImage4",
-      title: "Image",
-      type: "image",
-      options: {
-        hotspot:true,
-      },
-    },
-    {
-      name: "heroImage5",
-      title: "Image",
-      type: "image",
-      options: {
-        hotspot:true,
-      },
-    },
-    {
       name:"backgroundInfo",
       title:"BackgroundInformation",
       type:"string",

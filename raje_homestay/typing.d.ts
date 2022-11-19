@@ -15,15 +15,12 @@ interface Image{
 
 export interface RoomInformation extends sanityBody{
     _type: "roomInfo";
-    roomId: string;
-    name: string;
-    price: string;
-    heroImage: Image;
-    heroImage2: Image;
-    heroImage3: Image;
-    heroImage4: Image;
-    heroImage5: Image;
-    backgroundInfo: string;
+    backgroundInfo: string | null;
+    heroImage: Image | null;
+    name: string | null;
+    price: string | null;
+    roomId: string | null;
+    
 }
 
 export interface GalleryImage extends sanityBody{
