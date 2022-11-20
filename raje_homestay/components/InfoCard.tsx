@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { type } from 'os'
 import React from 'react'
+import { urlFor } from '../sanity'
 import { Room } from '../typing'
 
 type Props = {
@@ -10,6 +11,7 @@ type Props = {
 }
 
 function InfoCard({rooms }: Props) {
+    
 
     const router = useRouter();
 
@@ -17,6 +19,7 @@ function InfoCard({rooms }: Props) {
     const {query} = useRouter();
 
     const {startDate, endDate, location, numOfDays, numOfGuests} = query
+    const totalPrice = parseInt(rooms.price)*Number(numOfDays);
     const searchRoom = () =>{
         router.push({
             pathname:`/roomDescription/${rooms.roomTypeId}`,
@@ -25,17 +28,18 @@ function InfoCard({rooms }: Props) {
                 endDate: endDate,
                 location:location,
                 numOfDays:numOfDays,
-                numOfGuests:numOfGuests
+                numOfGuests:numOfGuests,
+                totalPrice:totalPrice
             }
           })
     };
 
-    const totalPrice = parseInt(rooms.price)*Number(numOfDays);
+
 
     return (
         <div onClick={searchRoom} className='flex py-7 px-2 mb-10  border-b cursor-pointer hover:opacity-80 hover:shadow-lg rounded-xl pr-4 transition duration-200 ease-out first:border-t'>
             <div className='relative h-24 w-40 md:h-52 md:w-80 flex-shrink-0  '>
-                <Image src="https://links.papareact.com/xqj" layout='fill' objectFit='cover' className='rounded-2xl' alt='pic of hotel 1' />
+                <Image src={urlFor(rooms.image).url()} layout='fill' objectFit='cover' className='rounded-2xl' alt='pic of hotel 1' />
             </div>
             <div className='flex flex-col flex-grow pl-5 '>
                 <div className='flex justify-between'>

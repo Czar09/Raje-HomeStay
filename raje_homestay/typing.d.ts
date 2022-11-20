@@ -32,6 +32,7 @@ export interface Room extends sanityBody{
     description:string;
     image: Image;
     roomTypeId: string;
+    maxGuests: string;
 }
 export interface Social extends sanityBody{
     _type: "social";

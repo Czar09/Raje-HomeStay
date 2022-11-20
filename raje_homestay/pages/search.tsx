@@ -11,13 +11,14 @@ import {fetchSocials} from '../utils/fetchSocials'
 import { fetchRooms } from '../utils/fetchRooms'
 
 type Props = {
-    socials: Social[],
     rooms: Room[],
   }
   
 
 
-export default function search({socials, rooms}:Props) {
+export default function search({rooms}:Props) {
+    const roomData = rooms.find((ele)=>ele.roomTypeId == '101')!;
+    console.log("roomdata",roomData);
     const router  = useRouter();
     {/** Destructured Values */}
     console.log(router.query);
@@ -56,11 +57,9 @@ export default function search({socials, rooms}:Props) {
 
 
 export const getStaticProps: GetStaticProps<Props> = async() => {
-    const socials: Social[] = await fetchSocials();
     const rooms: Room[] = await fetchRooms();
     return {
         props:{
-            socials,
             rooms
         },
         revalidate:10,

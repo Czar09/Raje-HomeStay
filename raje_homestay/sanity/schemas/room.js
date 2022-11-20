@@ -24,12 +24,17 @@ export default {
     {
         name:"image",
         title:"Image",
-        type:"image"
+        type:"image",
     },
     {
         name: "roomTypeId",
         title:"RoomTypeId",
         type:"string"
+    },
+    {
+      name:"maxGuest",
+      title:"MaxGuests",
+      type:"string"
     }
   ],
 }
