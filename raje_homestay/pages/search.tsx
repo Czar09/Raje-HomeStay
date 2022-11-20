@@ -6,16 +6,18 @@ import Head from '../components/Head'
 import {format} from 'date-fns';
 import InfoCard from '../components/InfoCard'
 import { GetStaticProps } from 'next'
-import { RoomInformation, Social } from '../typing'
+import { Room, Social } from '../typing'
 import {fetchSocials} from '../utils/fetchSocials'
+import { fetchRooms } from '../utils/fetchRooms'
 
 type Props = {
     socials: Social[],
+    rooms: Room[],
   }
   
 
 
-export default function search({socials}:Props) {
+export default function search({socials, rooms}:Props) {
     const router  = useRouter();
     {/** Destructured Values */}
     console.log(router.query);
@@ -41,9 +43,9 @@ export default function search({socials}:Props) {
                     Pet Friendly
                 </p>
             </div>
-            {/* {socials.map((social)=>(
-                <InfoCard/>
-            ))} */}
+            {rooms.map((room)=>(
+                <InfoCard  key={room._id} rooms={room} />
+            ))}
         </section>
        </main>
 
@@ -55,9 +57,11 @@ export default function search({socials}:Props) {
 
 export const getStaticProps: GetStaticProps<Props> = async() => {
     const socials: Social[] = await fetchSocials();
+    const rooms: Room[] = await fetchRooms();
     return {
         props:{
             socials,
+            rooms
         },
         revalidate:10,
     }

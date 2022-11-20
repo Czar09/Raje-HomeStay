@@ -5,10 +5,10 @@ import createSchema from 'part:@sanity/base/schema-creator'
 import schemaTypes from 'all:part:@sanity/base/schema-type'
 
 // We import object and document schemas
-import roomInfo from './roomInfo'
 import social from './social'
 import galleryImages from './galleryImages'
 import bannerImage from './bannerImage'
+import room from './room'
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -22,7 +22,7 @@ export default createSchema({
     social,
     galleryImages,
     bannerImage,
-    roomInfo,
+    room
     // When added to this list, object types can be used as
     // { type: 'typename' } in other document schemas
   ]),

@@ -13,16 +13,6 @@ interface Image{
     };
 }
 
-export interface RoomInformation extends sanityBody{
-    _type: "roomInfo";
-    backgroundInfo: string | null;
-    heroImage: Image | null;
-    name: string | null;
-    price: string | null;
-    roomId: string | null;
-    
-}
-
 export interface GalleryImage extends sanityBody{
     _type: "galleryImage";
     title: string;
@@ -35,6 +25,14 @@ export interface BannerImage extends sanityBody{
     image: Image;
 }
 
+export interface Room extends sanityBody{
+    _type: "room";
+    roomName: string;
+    price: string;
+    description:string;
+    image: Image;
+    roomTypeId: string;
+}
 export interface Social extends sanityBody{
     _type: "social";
     title: string;

@@ -3,9 +3,7 @@ import { useRouter } from 'next/router'
 import { useState } from 'react'
 import Footer from '../../components/Footer'
 import Head from '../../components/Head'
-import {format} from 'date-fns';
 import ImageGrid from '../../components/ImageGrid'
-import { LoaderIcon } from '../../components/Loader'
 import RoomInfo from '../../components/RoomInfo'
 
 export default function search({}) {
