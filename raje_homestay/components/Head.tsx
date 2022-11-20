@@ -42,7 +42,7 @@ function Head({ placeholder }: Props) {
         location: searchInput,
         startDate: formattedStartDate,
         endDate: formattedEndDate,
-        numOfDays: diffDays,
+        numOfDays: diffDays==0 ? 1:diffDays,
         numOfGuests,
       }
     })

@@ -1,19 +1,24 @@
+import { GetStaticPaths, GetStaticProps } from 'next'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import Footer from '../../components/Footer'
 import Head from '../../components/Head'
-import {format} from 'date-fns';
 import ImageGrid from '../../components/ImageGrid'
-import { LoaderIcon } from '../../components/Loader'
 import RoomInfo from '../../components/RoomInfo'
+import { urlFor } from '../../sanity'
+import { Room } from '../../typing'
+import { fetchRooms } from '../../utils/fetchRooms'
 
-export default function search({}) {
+type Props={
+    rooms: Room[]
+}
+
+export default function search({rooms}:Props) {
     const router  = useRouter();
-    {/** Destructured Values */}
-    console.log(router.query);
-    const{ location,startDate, endDate, numOfDays, numOfGuests} = router.query;
-
+    const {query} = useRouter();
+    const{ location,startDate, endDate, numOfDays, numOfGuests} = query;
+    const roomData = rooms.find((ele)=>ele.roomTypeId == query.roomId)!;
   return (
     <div>
        <Head placeholder={`${location}, ${startDate} - ${endDate} | ${numOfGuests} guests`}/>
@@ -33,13 +38,32 @@ export default function search({}) {
                     Pet Friendly
                 </p>
             </div>
-            <ImageGrid/>
-
-            <RoomInfo/>
+            <ImageGrid rooms={roomData} />
+            <RoomInfo maxGuests={roomData.maxGuests} price={roomData.price} description={roomData.description} />
         </section>
        </main>
 
        <Footer/>     
     </div>
   )
+}
+
+export const getStaticPaths: GetStaticPaths = async () => {
+    const data =  await fetchRooms();
+    const pathsWithParams = data.map((room) => ({ params: { roomId: room.roomTypeId }}))
+
+    return {
+        paths: pathsWithParams,
+        fallback: true
+    }
+  }
+
+export const getStaticProps: GetStaticProps<Props> = async() => {
+    const rooms: Room[] = await fetchRooms();
+    return {
+        props:{
+            rooms
+        },
+        revalidate:10,
+    }
 }

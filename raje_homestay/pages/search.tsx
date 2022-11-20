@@ -5,8 +5,20 @@ import Footer from '../components/Footer'
 import Head from '../components/Head'
 import {format} from 'date-fns';
 import InfoCard from '../components/InfoCard'
+import { GetStaticProps } from 'next'
+import { Room, Social } from '../typing'
+import {fetchSocials} from '../utils/fetchSocials'
+import { fetchRooms } from '../utils/fetchRooms'
 
-export default function search({}) {
+type Props = {
+    rooms: Room[],
+  }
+  
+
+
+export default function search({rooms}:Props) {
+    const roomData = rooms.find((ele)=>ele.roomTypeId == '101')!;
+    console.log("roomdata",roomData);
     const router  = useRouter();
     {/** Destructured Values */}
     console.log(router.query);
@@ -32,16 +44,24 @@ export default function search({}) {
                     Pet Friendly
                 </p>
             </div>
-
-            <InfoCard id='1'/>
-            <InfoCard/>
-            <InfoCard/>
-            <InfoCard/>
-
+            {rooms.map((room)=>(
+                <InfoCard  key={room._id} rooms={room} />
+            ))}
         </section>
        </main>
 
        <Footer/>     
     </div>
   )
+}
+
+
+export const getStaticProps: GetStaticProps<Props> = async() => {
+    const rooms: Room[] = await fetchRooms();
+    return {
+        props:{
+            rooms
+        },
+        revalidate:10,
+    }
 }
