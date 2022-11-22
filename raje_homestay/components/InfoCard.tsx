@@ -25,21 +25,19 @@ function InfoCard({rooms }: Props) {
     const checkinDate = new Date(startDate as string);
     const checkoutDate = new Date(endDate as string);
     const checkInTimestamp = Math.floor(checkinDate.getTime() /1000) ;
-    const checkOutTimestamp = Math.floor(checkinDate.getTime() /1000);
-    const roomType = parseInt(rooms.roomTypeId);
+    const checkOutTimestamp = Math.floor(checkoutDate.getTime() /1000);
     const formData = {
         checkInTimestamp: checkInTimestamp ,
         checkOutTimestamp: checkOutTimestamp,
         createTimestamp: getCurrentTimestamp(),
         expiryTimestamp: expiryTimestamp,
-        numOfGuests: numOfGuests as string,
+        numOfGuests: +(numOfGuests as string),
         roomType: rooms.roomName,
     };
-    const formdata2 = {
-        name:'Standard'
-    }
+
     const [roomAvailable, setRoomAvailable] = useState(0);
 const numOfRooms = async () =>{
+   console.log("checkin:",checkInTimestamp,"checkout:",checkOutTimestamp);
    const numRoom = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/checkRoomsNumAvailability`,{
     method: 'POST',
     headers: {
@@ -55,24 +53,6 @@ const numOfRooms = async () =>{
         console.log("There's an error");
     })
 }
-// const numOfRooms2 = async () =>{
-//     const numRoom = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/checkPerson`,{
-//      method: 'POST',
-//      headers: {
-//          'Content-type': 'application/json'
-//      },
-//      body: JSON.stringify(formdata2)
-//     })
-//     let rooms = numRoom.json();
-//      rooms.then((val)=>{
-//          console.log("Room Available",val.maxRooms);
-//      }).catch((err)=>{
-//          console.log("There's an error");
-//          setRoomAvailable(2);
-//      })
-//  }
-
-
 
     const searchRoom = () =>{
         if(roomAvailable!=0){

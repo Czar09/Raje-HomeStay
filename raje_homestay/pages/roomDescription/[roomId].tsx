@@ -39,7 +39,7 @@ export default function search({rooms}:Props) {
                 </p>
             </div>
             <ImageGrid rooms={roomData} />
-            <RoomInfo maxGuests={roomData.maxGuests} price={roomData.price} description={roomData.description} />
+            <RoomInfo maxGuests={roomData.maxGuests} price={roomData.price} description={roomData.description} roomName={roomData.roomName} />
         </section>
        </main>
 

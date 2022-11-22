@@ -2,25 +2,60 @@ import { HeartIcon, StarIcon, UsersIcon } from '@heroicons/react/solid'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
+import reserveRooms from '../pages/api/reserveRoom'
 import { Room } from '../typing'
 
 type Props = {
 
     maxGuests: string,
     price: string,
-    description: string
+    description: string,
+    roomName:string
 }
 
-function RoomInfo({maxGuests, price, description}: Props) {
+function RoomInfo({maxGuests, price, description, roomName}: Props) {
 
-    console.log(maxGuests);
-    
-   
     const router = useRouter();
     const{ location,startDate, endDate, numOfDays, numOfGuests, totalPrice} = router.query;
-    const [Adults, setAdults] = useState(numOfGuests);
+    const [Adults, setAdults] = useState(numOfGuests as string);
     const [child, setChild] = useState(0);
     const [numOfRoom, setNumOfRoom] = useState(1);
+    const Guests = +Adults + child;
+    const getTimestamp = (date: Date) => Math.round(date.getTime() / 1000);
+    const getCurrentTimestamp = () => getTimestamp(new Date());
+    const expiryTimestamp = getCurrentTimestamp() + (60*10);
+    const checkinDate = new Date(startDate as string);
+    const checkoutDate = new Date(endDate as string);
+    const checkInTimestamp = Math.floor(checkinDate.getTime() /1000) ;
+    const checkOutTimestamp = Math.floor(checkoutDate.getTime() /1000);
+    const formData = {
+        checkInTimestamp: checkInTimestamp ,
+        checkOutTimestamp: checkOutTimestamp,
+        createTimestamp: getCurrentTimestamp(),
+        expiryTimestamp: expiryTimestamp,
+        numOfGuests: Guests,
+        roomType: roomName,
+    };
+    const reserveRoom = async()=> {
+        const numRoom = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/checkRoomsNumAvailability`,{
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+           })
+           let rooms = numRoom.json();
+            rooms.then((val)=>{
+                if(val.roomsAvailable==Guests){
+                    console.log("Room Available",val.roomsAvailable);
+                    
+                }
+                
+            }).catch((err)=>{
+                console.log("There's an error");
+            })
+        }
+
     return (
         <div className='flex flex-col lg:flex-row py-7 px-2 md:p-20 mb-10 cursor-pointer rounded-xl pr-4 transition duration-200 ease-out '>
             <div className='flex flex-col p-10 shadow-lg bg-yellow-500 rounded-xl'>
@@ -40,7 +75,7 @@ function RoomInfo({maxGuests, price, description}: Props) {
                        Children (age{'<'}13)
                         <UsersIcon className='ml-2 h-5' />
                     </p>
-                    <input min={0} max={Number(numOfGuests)-Number(Adults)} onChange={(e) => setChild(parseInt(e.target.value))} type='number' className='w-12 pl-2 text-lg outline-none text-red-500' />
+                    <input value={child} min={0} max={Number(numOfGuests)-Number(Adults)} onChange={(e) => setChild(parseInt(e.target.value))} type='number' className='w-12 pl-2 text-lg outline-none text-red-500' />
 
                 </div>
                 <div className='flex justify-between mt-2'>
@@ -58,7 +93,7 @@ function RoomInfo({maxGuests, price, description}: Props) {
                     <div>
                         <p className='text-lg font-semibold lg:text-2xl pb-2'>{price} / night</p>
                         <p className='text-right font-extralight '>{totalPrice} total </p>
-                        <button className='ml-6 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded-full mt-5'>Pay Now!!</button>
+                        <button onClick={reserveRoom} className='ml-6 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded-full mt-5' >Pay Now!!</button>
                     </div>
                 </div>
 
