@@ -8,6 +8,7 @@ import MediumCard from '../components/MediumCard'
 import SmallCard from '../components/SmallCard' 
 import ImageGallery from 'react-image-gallery';
 
+
 export default function Home() {
 
   const images = [
