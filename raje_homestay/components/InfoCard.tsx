@@ -76,7 +76,7 @@ function InfoCard({ rooms }: Props) {
     useEffect(() => {
         numOfRooms();
     })
-
+    price = parseInt(rooms.offerPrice) == 0 ? price : price - (price*parseInt(rooms.offerPrice)/100)
 
     return (
         <div onClick={searchRoom} className='flex py-7 px-2 mb-10  border-b cursor-pointer hover:opacity-80 hover:shadow-lg rounded-xl pr-4 transition duration-200 ease-out first:border-t' >
@@ -97,7 +97,8 @@ function InfoCard({ rooms }: Props) {
                         <StarIcon className='h-5 text-red-400' /> 4.7
                     </p>
                     <div>
-                        <p className='text-lg font-semibold lg:text-2xl pb-2'>{rooms.price} / night</p>
+                        <p className='text-lg font-semibold lg:text-2xl pb-2'>{price} / night</p>
+                        {rooms.offerPrice === '0' ? '':<p className='text-lg font-semibold lg:text-2xl pb-2'><s>{rooms.price}</s> / night</p>}
                         <p className='text-right font-extralight '>{price} total </p>
                     </div>
                 </div>

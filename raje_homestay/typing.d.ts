@@ -43,6 +43,7 @@ export interface Room extends sanityBody{
     imageSmallSecond:Image;
     imageSmallThird:Image;
     imageSmallFourth:Image;
+    offerPrice:string;
 }
 export interface Social extends sanityBody{
     _type: "social";

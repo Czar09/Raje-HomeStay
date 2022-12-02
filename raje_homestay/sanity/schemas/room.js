@@ -55,7 +55,15 @@ export default {
       name: "imageSmallFourth",
       title: "ImageSmallFourth",
       type: "image",
+    },
+    {
+      name: "offerPrice",
+      title: "OfferPrice",
+      description:"Enter only percentage number (without %)",
+      type: "string",
+      initialValue: '0',
     }
 
   ],
+  
 }
