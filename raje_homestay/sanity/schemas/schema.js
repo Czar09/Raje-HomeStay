@@ -9,6 +9,7 @@ import social from './social'
 import galleryImages from './galleryImages'
 import bannerImage from './bannerImage'
 import room from './room'
+import amenities from './amenities'
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -22,7 +23,8 @@ export default createSchema({
     social,
     galleryImages,
     bannerImage,
-    room
+    room,
+    amenities
     // When added to this list, object types can be used as
     // { type: 'typename' } in other document schemas
   ]),

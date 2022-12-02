@@ -25,6 +25,12 @@ export interface BannerImage extends sanityBody{
     image: Image;
 }
 
+export interface Amenities extends sanityBody{
+    _type: "amenities";
+    title: string;
+    image: Image;
+}
+
 export interface Room extends sanityBody{
     _type: "room";
     roomName: string;

@@ -7,21 +7,23 @@ import LargeCard from '../components/LargeCard'
 import MediumCard from '../components/MediumCard'
 import SmallCard from '../components/SmallCard' 
 import ImageGallery from 'react-image-gallery';
-import { BannerImage, GalleryImage, Room } from '../typing'
+import { Amenities, BannerImage, GalleryImage, Room } from '../typing'
 import { fetchBanner } from '../utils/fetchBanner'
 import { GetStaticProps } from 'next'
 import { fetchRooms } from '../utils/fetchRooms'
 import { fetchGallery } from '../utils/fetchGallery'
 import { urlFor } from '../sanity'
+import { fetchAmenities } from '../utils/fetchAmenities'
 
 type Props ={ 
   bannerImage: BannerImage,
   rooms: Room[],
-  galleryImage: GalleryImage[]
+  galleryImage: GalleryImage[],
+  amenities: Amenities[],
 }
 
 
-export default function Home({bannerImage, rooms, galleryImage}:Props) {
+export default function Home({bannerImage, rooms, galleryImage, amenities}:Props) {
 
   let images = [{
     original:urlFor(bannerImage.image).url(),
@@ -37,7 +39,6 @@ export default function Home({bannerImage, rooms, galleryImage}:Props) {
       })
     ))
   },[]);
-console.log(images);
   return (
     <div>
       <Head placeholder='Search Here'/>
@@ -54,7 +55,7 @@ console.log(images);
             ))}
           </div>
         </section>
-        <ImageGallery items={images} autoPlay={true} showPlayButton={false} />
+        <ImageGallery items={images} autoPlay={true} showPlayButton={false} showThumbnails={false}/>
        
        
         <section className='pt-6 mt-3 mb-10'>
@@ -62,7 +63,7 @@ console.log(images);
             Amenities
           </h2>
           <div className='grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4'>
-            <SmallCard />
+            <SmallCard amenities={amenities}/>
           </div>
         </section>
 
@@ -79,13 +80,14 @@ export const getStaticProps: GetStaticProps<Props> = async() => {
   const bannerImage: BannerImage = await fetchBanner();
   const rooms: Room[] = await fetchRooms();
   const galleryImage: GalleryImage[] = await fetchGallery();
-
+  const amenities: Amenities[] = await fetchAmenities();
 
   return{
     props:{
       bannerImage,
       rooms,
-      galleryImage
+      galleryImage,
+      amenities
     },
     
     //This ensures that NextJs will re-genrate the page data after every 10 seconds to be updated
