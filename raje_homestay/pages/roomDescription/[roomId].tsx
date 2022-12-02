@@ -14,7 +14,7 @@ type Props = {
     rooms: Room[]
 }
 
-export default function Search({ rooms }: Props) {
+ function Search({ rooms }: Props) {
     const router = useRouter();
     const { query } = useRouter();
     const { location, startDate, endDate, numOfDays, numOfGuests } = query;

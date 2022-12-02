@@ -16,7 +16,7 @@ type Props = {
   
 
 
-export default function Search({rooms}:Props) {
+ function Search({rooms}:Props) {
     const router  = useRouter();
     {/** Destructured Values */}
     console.log(router.query);

@@ -12,7 +12,7 @@ type Props = {
 	rooms: Room[]
 }
 
-export default function Search({ rooms }: Props) {
+function Search({ rooms }: Props) {
 
 
 	const router = useRouter();

@@ -9,7 +9,7 @@ import SmallCard from '../components/SmallCard'
 import ImageGallery from 'react-image-gallery';
 import { Amenities, BannerImage, GalleryImage, Room } from '../typing'
 import { fetchBanner } from '../utils/fetchBanner'
-import { GetStaticProps } from 'next'
+import { GetServerSideProps, GetStaticProps } from 'next'
 import { fetchRooms } from '../utils/fetchRooms'
 import { fetchGallery } from '../utils/fetchGallery'
 import { urlFor } from '../sanity'
@@ -22,8 +22,7 @@ type Props ={
   amenities: Amenities[],
 }
 
-
-export default function Home({bannerImage, rooms, galleryImage, amenities}:Props) {
+function Home({bannerImage, rooms, galleryImage, amenities}:Props) {
 
   let images = [{
     original:urlFor(bannerImage.image).url(),
@@ -76,7 +75,7 @@ export default function Home({bannerImage, rooms, galleryImage, amenities}:Props
   )
 }
 
-export const getStaticProps: GetStaticProps<Props> = async() => {
+export const getServerSideProps: GetServerSideProps<Props> = async() => {
   const bannerImage: BannerImage = await fetchBanner();
   const rooms: Room[] = await fetchRooms();
   const galleryImage: GalleryImage[] = await fetchGallery();
@@ -88,9 +87,6 @@ export const getStaticProps: GetStaticProps<Props> = async() => {
       rooms,
       galleryImage,
       amenities
-    },
-    
-    //This ensures that NextJs will re-genrate the page data after every 10 seconds to be updated
-    revalidate:10,
+    }
   }
 }
