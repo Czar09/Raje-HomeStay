@@ -22,7 +22,7 @@ type Props ={
   amenities: Amenities[],
 }
 
-const Home: NextPage = ({bannerImage, rooms, galleryImage, amenities}:Props) => {
+const Home = ({bannerImage, rooms, galleryImage, amenities}:Props) => {
 
   let images = [{
     original:urlFor(bannerImage.image).url(),
