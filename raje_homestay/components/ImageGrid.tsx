@@ -8,7 +8,6 @@ type Props = {
 }
 
 function ImageGrid({rooms}: Props) {
-    console.log(rooms)
   return (
     <div className="container grid grid-cols-2 mx-auto gap-4 lg:grid-cols-4">
             <img
@@ -17,19 +16,19 @@ function ImageGrid({rooms}: Props) {
             />
             <img
                 className="w-full h-full"
-                src="https://cdn.pixabay.com/photo/2017/11/09/10/57/light-weight-aggregates-2933073__340.jpg"
+                src={urlFor(rooms.imageSmallFirst).url()}
             />
             <img
                 className="w-full h-full"
-                src="https://cdn.pixabay.com/photo/2017/11/09/10/57/light-weight-aggregates-2933073__340.jpg"
+                src={urlFor(rooms.imageSmallSecond).url()}
             />
             <img
                 className="w-full h-full"
-                src="https://cdn.pixabay.com/photo/2017/11/09/10/57/light-weight-aggregates-2933073__340.jpg"
+                src={urlFor(rooms.imageSmallThird).url()}
             />
             <img
                 className="w-full h-full"
-                src="https://cdn.pixabay.com/photo/2017/11/09/10/57/light-weight-aggregates-2933073__340.jpg"
+                src={urlFor(rooms.imageSmallFourth).url()}
             />
         </div>
   )

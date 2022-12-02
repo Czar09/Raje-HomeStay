@@ -9,20 +9,22 @@ const reserveRooms =async (req: NextApiRequest, res: NextApiResponse) => {
         email: string;
         name: string;
         phoneNumber: string;
-        checkInTimestamp: EpochTimeStamp;
-        checkOutTimestamp: EpochTimeStamp;
-        bookingTimestamp: EpochTimeStamp;
-        numOfGuests: string;
-        numOfDays: string;
-        numOfRooms: string;
+        checkInTimestamp: number;
+        checkOutTimestamp: number;
+        bookingTimestamp: number;
+        numOfGuests: number;
+        numOfRooms: number;
         roomType: string;
+        price:string;
     };
+
+    console.log("userDetails= ",userDetails);
+    
     const status = 'CONFIRMED';
-    let booking_transaction = await db.query('InsertInto public.booking_confirmation (email, name, phone_number, checkInTimestamp, checkOutTimestamp, bookingTimestamp, numOfGuests, numOfDays, numOfRooms, roomType, booking_status) Values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) Returning *', 
-    [userDetails.email, userDetails.name, userDetails.phoneNumber, userDetails.checkInTimestamp, userDetails.checkOutTimestamp, userDetails.bookingTimestamp,  userDetails.numOfGuests, userDetails.numOfDays, userDetails.numOfRooms, userDetails.roomType, status]);
-    let booking_date = moment(userDetails.checkInTimestamp).format('DD/MM/YYYY');
-    sendMail(userDetails.email, userDetails.name, booking_date);
-    res.status(200);
+    let booking_transaction = await db.query("Insert Into public.booking_confirmation (email, name, phone_number, checkintimestamp, checkouttimestamp, booking_timestamp, num_of_guests, num_of_rooms, room_type, booking_status) Values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) Returning *", 
+    [userDetails.email, userDetails.name, userDetails.phoneNumber, userDetails.checkInTimestamp, userDetails.checkOutTimestamp, userDetails.bookingTimestamp,  userDetails.numOfGuests, userDetails.numOfRooms, userDetails.roomType, status]);
+    // sendMail(userDetails.email, userDetails.name, booking_date);
+    res.status(200).json(booking_transaction);
 }
 
 export default(reserveRooms);

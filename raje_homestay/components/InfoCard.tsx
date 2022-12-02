@@ -12,22 +12,20 @@ type Props = {
     rooms: Room,
 }
 
-function InfoCard({rooms }: Props) {
+function InfoCard({ rooms }: Props) {
 
     const router = useRouter();
-    const {query} = useRouter();
-
+    const { query } = useRouter();
     const getTimestamp = (date: Date) => Math.round(date.getTime() / 1000);
     const getCurrentTimestamp = () => getTimestamp(new Date());
-    const expiryTimestamp = getCurrentTimestamp() + (60*10);
-    const {startDate, endDate, location, numOfDays, numOfGuests} = query
-    const totalPrice = parseInt(rooms.price)*Number(numOfDays);
+    const expiryTimestamp = getCurrentTimestamp() + (60 * 10);
+    const { startDate, endDate, location, numOfDays, numOfGuests } = query
     const checkinDate = new Date(startDate as string);
     const checkoutDate = new Date(endDate as string);
-    const checkInTimestamp = Math.floor(checkinDate.getTime() /1000) ;
-    const checkOutTimestamp = Math.floor(checkoutDate.getTime() /1000);
+    const checkInTimestamp = Math.floor(checkinDate.getTime() / 1000);
+    const checkOutTimestamp = Math.floor(checkoutDate.getTime() / 1000);
     const formData = {
-        checkInTimestamp: checkInTimestamp ,
+        checkInTimestamp: checkInTimestamp,
         checkOutTimestamp: checkOutTimestamp,
         createTimestamp: getCurrentTimestamp(),
         expiryTimestamp: expiryTimestamp,
@@ -36,43 +34,48 @@ function InfoCard({rooms }: Props) {
     };
 
     const [roomAvailable, setRoomAvailable] = useState(0);
-const numOfRooms = async () =>{
-   console.log("checkin:",checkInTimestamp,"checkout:",checkOutTimestamp);
-   const numRoom = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/checkRoomsNumAvailability`,{
-    method: 'POST',
-    headers: {
-        'Content-type': 'application/json'
-    },
-    body: JSON.stringify(formData)
-   })
-   let rooms = numRoom.json();
-    rooms.then((val)=>{
-        setRoomAvailable(val.roomsAvailable);
-        console.log("Room Available",val.roomsAvailable);
-    }).catch((err)=>{
-        console.log("There's an error");
-    })
-}
+    const initialPrice = (parseInt(rooms.price) * Number(numOfDays));
+    let price = initialPrice;
+    let totalPrice = initialPrice + (0.22*initialPrice);
+    if(checkInTimestamp<=getCurrentTimestamp()){
+        price = totalPrice;
+    }
+    
+    const numOfRooms = async () => {
+        const numRoom = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/checkRoomsNumAvailability`, {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        })
+        let rooms = numRoom.json();
+        rooms.then((val) => {
+            setRoomAvailable(val.roomsAvailable);
+        }).catch((err) => {
+            console.log("There's an error while fetching rooms");
+        })
+    }
 
-    const searchRoom = () =>{
-        if(roomAvailable!=0){
+    const searchRoom = () => {
+        if (roomAvailable != 0) {
             router.push({
-                pathname:`/roomDescription/${rooms.roomTypeId}`,
+                pathname: `/roomDescription/${rooms.roomTypeId}`,
                 query: {
                     startDate: startDate,
                     endDate: endDate,
-                    location:location,
-                    numOfDays:numOfDays,
-                    numOfGuests:numOfGuests,
-                    totalPrice:totalPrice
+                    location: location,
+                    numOfDays: numOfDays,
+                    numOfGuests: numOfGuests,
+                    totalPrice: price
                 }
-              })
+            })
         }
     };
 
-useEffect(()=>{
-    numOfRooms();
-})
+    useEffect(() => {
+        numOfRooms();
+    })
 
 
     return (
@@ -86,19 +89,19 @@ useEffect(()=>{
                     <HeartIcon className='h-7 cursor-pointer text-red-600' />
                 </div>
                 <h4 className='text-xl'>{rooms.roomName}</h4>
-                <div className='border-b w-10 pt-2'/>
-                    <p className='pt-2 text-sm text-gray-500 flex-grow'>{rooms.description}</p>
-                    <p className='pt-2 text-sm text-gray-500 flex-grow'>{roomAvailable} Rooms Left</p>
-                    <div className='flex justify-between items-end pt-5 '>
-                        <p className='flex items-center'>
-                            <StarIcon className='h-5 text-red-400' /> 4.7
-                        </p>
-                        <div>
-                            <p className='text-lg font-semibold lg:text-2xl pb-2'>{rooms.price} / night</p>
-                            <p className='text-right font-extralight '>{totalPrice} total </p>
-                        </div>
+                <div className='border-b w-10 pt-2' />
+                <p className='pt-2 text-sm text-gray-500 flex-grow'>{rooms.description}</p>
+                <p className='pt-2 text-sm text-gray-500 flex-grow'>{roomAvailable} Rooms Left</p>
+                <div className='flex justify-between items-end pt-5 '>
+                    <p className='flex items-center'>
+                        <StarIcon className='h-5 text-red-400' /> 4.7
+                    </p>
+                    <div>
+                        <p className='text-lg font-semibold lg:text-2xl pb-2'>{rooms.price} / night</p>
+                        <p className='text-right font-extralight '>{price} total </p>
                     </div>
-                
+                </div>
+
             </div>
         </div>
     )

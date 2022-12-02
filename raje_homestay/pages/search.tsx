@@ -17,8 +17,6 @@ type Props = {
 
 
 export default function search({rooms}:Props) {
-    const roomData = rooms.find((ele)=>ele.roomTypeId == '101')!;
-    console.log("roomdata",roomData);
     const router  = useRouter();
     {/** Destructured Values */}
     console.log(router.query);
