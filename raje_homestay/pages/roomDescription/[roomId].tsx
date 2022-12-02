@@ -49,15 +49,6 @@ export default function Search({ rooms }: Props) {
     )
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
-    const data = await fetchRooms();
-    const pathsWithParams = data.map((room) => ({ params: { roomId: room.roomTypeId } }))
-
-    return {
-        paths: pathsWithParams,
-        fallback: true
-    }
-}
 
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
     const rooms: Room[] = await fetchRooms();
