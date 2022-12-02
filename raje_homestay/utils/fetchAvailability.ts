@@ -1,7 +1,8 @@
 import { Social } from "../typing";
 
 export const fetchAvailability = async() =>{
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/checkRoomsNumAvailability`,{
+    const url = new URL("/api/checkRoomsNumAvailability", `${process.env.NEXT_PUBLIC_BASE_URL}`)
+    const res = await fetch(url,{
         method:'GET',
         headers: {
             'Content-type': 'application/json'
