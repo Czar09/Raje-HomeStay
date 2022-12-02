@@ -33,12 +33,12 @@
     "react-image-gallery": "^1.2.11",
     "react-toastify": "^9.1.1",
     "shortid": "^2.2.16",
+    "sib-api-v3-typescript": "^2.2.2",
     "tailwind-scrollbar": "^2.0.1",
     "tailwind-scrollbar-hide": "^1.1.7",
     "typescript": "4.8.4"
   },
   "devDependencies": {
-    "@types/react-date-range": "^1.4.4",
     "@types/shortid": "^0.0.29",
     "autoprefixer": "^10.4.13",
     "postcss": "^8.4.19",

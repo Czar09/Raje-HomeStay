@@ -3,7 +3,7 @@ import { db } from "../../db/Connection";
 
 
 
-const getRoom =async (req: NextApiRequest, res: NextApiResponse<>) => {  
+const getRoom =async (req: NextApiRequest, res: NextApiResponse) => {  
 
     const userDetails = req.body as {
         name:string;

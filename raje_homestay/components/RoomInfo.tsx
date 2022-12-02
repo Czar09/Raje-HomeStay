@@ -19,8 +19,9 @@ type Props = {
 
 function RoomInfo({ maxGuests, price, description, roomName, roomId, numOfGuests }: Props) {
     const router = useRouter();
+    const numofgues = parseInt(numOfGuests)
     const { startDate, endDate, numOfDays, totalPrice } = router.query;
-    const [Adults, setAdults] = useState(`${numOfGuests}`);
+    const [Adults, setAdults] = useState(numofgues);
     const [child, setChild] = useState(0);
     const [numOfRoom, setNumOfRoom] = useState(1);
     const getTimestamp = (date: Date) => Math.round(date.getTime() / 1000);
@@ -49,10 +50,10 @@ function RoomInfo({ maxGuests, price, description, roomName, roomId, numOfGuests
         let nums = +Adults + child;
         if(+numOfGuests==0 || isNaN(+numOfGuests)){
             alert(`Guests can't be 0`);
-            setAdults('0');
+            setAdults(0);
         }
         else if(+numOfGuests<nums){
-            alert(`Total guests can't exceed limit of ${+numOfGuests} as per your selection`)
+            alert(`Total guests can't exceed limit of {${numofgues}} as per your selection`)
         }
         else if(numOfRoom>2){
             alert("Can't book more than 2 rooms");
@@ -125,7 +126,7 @@ function RoomInfo({ maxGuests, price, description, roomName, roomId, numOfGuests
                         Adults (age {'>'} 13)
                         <UsersIcon className='ml-2 h-5' />
                     </p>
-                    <input value={Adults} min={1} max={Number(numOfGuests) - child} onChange={(e) => setAdults(parseInt(e.target.value))} type='number' className='w-12 pl-2 text-lg outline-none text-red-500' />
+                    <input value={Adults} min={1} max={numofgues - child} onChange={(e)=>setAdults(parseInt(e.target.value))} type='number' className='w-12 pl-2 text-lg outline-none text-red-500' />
 
                 </div>
                 <div className='flex justify-between mt-2'>

@@ -6,7 +6,6 @@ export const fetchAvailability = async() =>{
         headers: {
             'Content-type': 'application/json'
         },
-        body: JSON.stringify()
     });
 
     const data = await res.json();

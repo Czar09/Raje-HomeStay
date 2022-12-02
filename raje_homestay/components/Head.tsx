@@ -5,7 +5,7 @@ import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import { DateRangePicker } from 'react-date-range';
 import { useRouter } from 'next/router';
-import { format } from 'date-fns';
+import { addDays, format } from 'date-fns';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -20,7 +20,7 @@ function Head({ placeholder }: Props) {
 
   const [searchInput, setSearchInput] = useState('');
   const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(addDays(new Date(),1));
   const [numOfGuests, setNumOfGuests] = useState(1);
 
   const handleSelect = (ranges: { selection: { startDate: Date, endDate: Date } }) => {
