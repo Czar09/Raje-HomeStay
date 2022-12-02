@@ -30,7 +30,7 @@ export default function Home({bannerImage, rooms, galleryImage, amenities}:Props
     thumbnail:urlFor(bannerImage.image).url(),
   }];
 
-  useEffect(()=>{
+
     galleryImage.map((gallery)=>(
     
       images.push({
@@ -38,7 +38,7 @@ export default function Home({bannerImage, rooms, galleryImage, amenities}:Props
         thumbnail:urlFor(gallery.image).url()
       })
     ))
-  },[]);
+    
   return (
     <div>
       <Head placeholder='Search Here'/>
