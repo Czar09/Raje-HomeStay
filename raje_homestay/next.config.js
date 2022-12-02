@@ -4,7 +4,8 @@ const nextConfig = {
   swcMinify: true,
   images:{
     domains:["links.papareact.com","cdn.sanity.io"],
-  }
+  },
+  pageExtensions: ['tsx', 'ts', 'jsx', 'js']
 }
 
 module.exports = nextConfig
