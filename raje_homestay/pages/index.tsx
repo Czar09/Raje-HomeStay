@@ -88,9 +88,6 @@ export const getServerSideProps: GetServerSideProps<Props> = async() => {
       rooms,
       galleryImage,
       amenities
-    },
-    
-    //This ensures that NextJs will re-genrate the page data after every 10 seconds to be updated
-    revalidate:10,
+    }
   }
 }

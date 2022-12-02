@@ -277,7 +277,6 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
 	return {
 		props: {
 			rooms
-		},
-		revalidate: 10,
+		}
 	}
 }
