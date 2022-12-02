@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 
 type Props = {}
 
-function Success({}: Props) {
+const Success = ({}: Props)=>{
 
     const router = useRouter();
     // useEffect(()=>{

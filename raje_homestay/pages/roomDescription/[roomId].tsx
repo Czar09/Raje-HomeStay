@@ -14,7 +14,7 @@ type Props = {
     rooms: Room[]
 }
 
- function Search({ rooms }: Props) {
+ const Search = ({ rooms }: Props) =>{
     const router = useRouter();
     const { query } = useRouter();
     const { location, startDate, endDate, numOfDays, numOfGuests } = query;
@@ -49,6 +49,7 @@ type Props = {
     )
 }
 
+export default Search;
 
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
     const rooms: Room[] = await fetchRooms();

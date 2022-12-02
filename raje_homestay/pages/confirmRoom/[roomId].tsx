@@ -12,7 +12,7 @@ type Props = {
 	rooms: Room[]
 }
 
-function Search({ rooms }: Props) {
+const Search = ({ rooms }: Props)=>{
 
 
 	const router = useRouter();
@@ -270,6 +270,8 @@ function Search({ rooms }: Props) {
 		</div>
 	)
 }
+
+export default Search;
 
 
 export const getServerSideProps: GetServerSideProps<Props> = async () => {

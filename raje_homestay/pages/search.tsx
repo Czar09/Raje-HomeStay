@@ -16,7 +16,7 @@ type Props = {
   
 
 
- function Search({rooms}:Props) {
+ const Search = ({rooms}:Props)=> {
     const router  = useRouter();
     {/** Destructured Values */}
     console.log(router.query);
@@ -53,6 +53,7 @@ type Props = {
   )
 }
 
+export default Search;
 
 export const getServerSideProps: GetServerSideProps<Props> = async() => {
     const rooms: Room[] = await fetchRooms();
