@@ -5,7 +5,7 @@ import Footer from '../components/Footer'
 import Head from '../components/Head'
 import {format} from 'date-fns';
 import InfoCard from '../components/InfoCard'
-import { GetStaticProps } from 'next'
+import { GetServerSideProps, GetStaticProps } from 'next'
 import { Room, Social } from '../typing'
 import {fetchSocials} from '../utils/fetchSocials'
 import { fetchRooms } from '../utils/fetchRooms'
@@ -54,7 +54,7 @@ export default function Search({rooms}:Props) {
 }
 
 
-export const getStaticProps: GetStaticProps<Props> = async() => {
+export const getServerSideProps: GetServerSideProps<Props> = async() => {
     const rooms: Room[] = await fetchRooms();
     return {
         props:{
