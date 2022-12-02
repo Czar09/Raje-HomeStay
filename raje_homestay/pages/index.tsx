@@ -9,7 +9,7 @@ import SmallCard from '../components/SmallCard'
 import ImageGallery from 'react-image-gallery';
 import { Amenities, BannerImage, GalleryImage, Room } from '../typing'
 import { fetchBanner } from '../utils/fetchBanner'
-import { GetServerSideProps, GetStaticProps } from 'next'
+import { GetServerSideProps, GetStaticProps, NextPage } from 'next'
 import { fetchRooms } from '../utils/fetchRooms'
 import { fetchGallery } from '../utils/fetchGallery'
 import { urlFor } from '../sanity'
@@ -22,7 +22,7 @@ type Props ={
   amenities: Amenities[],
 }
 
-function Home({bannerImage, rooms, galleryImage, amenities}:Props) {
+const Home: NextPage = ({bannerImage, rooms, galleryImage, amenities}:Props) => {
 
   let images = [{
     original:urlFor(bannerImage.image).url(),
@@ -74,6 +74,8 @@ function Home({bannerImage, rooms, galleryImage, amenities}:Props) {
     </div>
   )
 }
+
+export default Home;
 
 export const getServerSideProps: GetServerSideProps<Props> = async() => {
   const bannerImage: BannerImage = await fetchBanner();
