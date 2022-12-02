@@ -1,7 +1,7 @@
 import { Social } from "../typing";
 
 export const fetchAvailability = async() =>{
-    const res = await fetch(`https://demo-rajae-homestay.netlify.app/api/checkRoomsNumAvailability`,{
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/checkRoomsNumAvailability`,{
         method:'GET',
         headers: {
             'Content-type': 'application/json'
